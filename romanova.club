@@ -1,0 +1,30 @@
+<VirtualHost *:80>
+    ServerAdmin nene@romanova.club
+    DocumentRoot "/srv/http/romanova/"
+    ServerName romanova.club 
+    ServerAlias www.romanova.club
+    ErrorLog "/var/log/httpd/romanova.club-error_log"
+    CustomLog "/var/log/httpd/romanova.club-access_log" common
+	<Directory /etc/http/romanova/>
+	Options Indexes FollowSymLinks MultiViews
+	AllowOverride None
+	</Directory>
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerAdmin nene@romanova.club
+    DocumentRoot "/srv/http/romanova/"
+    ServerName romanova.club:443
+    ServerAlias www.romanova.club:443
+    SSLEngine on
+    SSLCertificateFile "/etc/letsencrypt/live/romanova.club/fullchain.pem"
+    #SSLCertificateFile "/etc/httpd/conf/server.crt"
+    SSLCertificateKeyFile "/etc/letsencrypt/live/romanova.club/privkey.pem"
+    #SSLCertificateKeyFile "/etc/httpd/conf/server.key"
+    ErrorLog "/var/log/httpd/romanova.club-error_log"
+    CustomLog "/var/log/httpd/romanova.club-access_log" common
+
+    <Directory "/home/user/http/romanova">
+        Require all granted
+    </Directory>
+</VirtualHost>
